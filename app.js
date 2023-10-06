@@ -12,12 +12,11 @@ let issue = {
     description: 'This is a sample issue for demonstration purposes.'
 };
 
-app.get('/', (req, res) => res.send('Hello world!'));
-
 // Create Operation
 app.post('/api/issues', (req, res) => {
     const newIssue = req.body;
     console.log('Created Issue:', newIssue);
+    issue = newIssue; // Update the issue with the new data
     res.json({ message: 'Issue created successfully.' });
 });
 
@@ -31,13 +30,14 @@ app.get('/api/issues', (req, res) => {
 app.put('/api/issues', (req, res) => {
     const updatedIssue = req.body;
     console.log('Updated Issue:', updatedIssue);
+    issue = updatedIssue; // Update the issue with the updated data
     res.json({ message: 'Issue updated successfully.' });
 });
 
 // Delete Operation
-app.delete('/api/issues/:id', (req, res) => {
-    const issueId = req.params.id;
-    console.log('Deleted Issue ID:', issueId);
+app.delete('/api/issues', (req, res) => {
+    console.log('Deleted Issue:', issue);
+    issue = {}; // Delete the issue
     res.json({ message: 'Issue deleted successfully.' });
 });
 
